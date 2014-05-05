@@ -1,0 +1,60 @@
+%define major 5
+%define libname %mklibname KF5Pty %{major}
+%define devname %mklibname KF5Pty -d
+%define debug_package %{nil}
+
+Name: kpty
+Version: 4.98.0
+Release: 1
+Source0: http://ftp5.gwdg.de/pub/linux/kde/unstable/frameworks/%{version}/%{name}-%{version}.tar.xz
+Summary: The KDE Frameworks 5 pty handling library
+URL: http://kde.org/
+License: GPL
+Group: System/Libraries
+BuildRequires: cmake
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: utempter-devel
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: qmake5
+BuildRequires: extra-cmake-modules5
+
+%description
+KPty is an abstraction to pty handling.
+
+%package -n %{libname}
+Summary: The KDE Frameworks 5 pty handling library
+Group: System/Libraries
+
+%description -n %{libname}
+KPty is an abstraction to pty handling.
+
+%package -n %{devname}
+Summary: Development files for %{name}
+Group: Development/KDE and Qt
+Requires: %{libname} = %{EVRD}
+
+%description -n %{devname}
+KPty is an abstraction to pty handling.
+
+%prep
+%setup -q
+%cmake
+
+%build
+%make -C build
+
+%install
+%makeinstall_std -C build
+mkdir -p %{buildroot}%{_libdir}/qt5
+mv %{buildroot}%{_prefix}/mkspecs %{buildroot}%{_libdir}/qt5
+
+%files -n %{libname}
+%{_libdir}/*.so.%{major}
+%{_libdir}/*.so.%{version}
+
+%files -n %{devname}
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/cmake/KF5Pty
+%{_libdir}/qt5/mkspecs/modules/*
