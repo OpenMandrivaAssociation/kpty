@@ -4,8 +4,8 @@
 %define debug_package %{nil}
 
 Name: kpty
-Version: 4.99.0
-Release: 2
+Version: 5.0.0
+Release: 1
 Source0: http://ftp5.gwdg.de/pub/linux/kde/unstable/frameworks/%{version}/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 pty handling library
 URL: http://kde.org/
@@ -18,6 +18,7 @@ BuildRequires: utempter-devel
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: qmake5
 BuildRequires: extra-cmake-modules5
+Requires: %{libname} = %{EVRD}
 
 %description
 KPty is an abstraction to pty handling.
@@ -25,6 +26,7 @@ KPty is an abstraction to pty handling.
 %package -n %{libname}
 Summary: The KDE Frameworks 5 pty handling library
 Group: System/Libraries
+Requires: %{name} = %{EVRD}
 
 %description -n %{libname}
 KPty is an abstraction to pty handling.
@@ -48,6 +50,9 @@ KPty is an abstraction to pty handling.
 %makeinstall_std -C build
 mkdir -p %{buildroot}%{_libdir}/qt5
 mv %{buildroot}%{_prefix}/mkspecs %{buildroot}%{_libdir}/qt5
+%find_lang %{name}%{major}
+
+%files -f %{name}%{major}.lang
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
