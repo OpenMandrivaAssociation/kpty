@@ -18,6 +18,7 @@ BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(KF5CoreAddons)
 BuildRequires: utempter-devel
 BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: qmake5
 BuildRequires: extra-cmake-modules5
 Requires: %{libname} = %{EVRD}
