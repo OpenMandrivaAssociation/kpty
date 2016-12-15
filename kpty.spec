@@ -42,7 +42,7 @@ KPty is an abstraction to pty handling.
 
 %prep
 %setup -q
-%cmake_kde5
+%cmake_kde5 -DUTEMPTER_EXECUTABLE:PATH=%{_libexecdir}/utempter/utempter
 
 %build
 %ninja -C build
